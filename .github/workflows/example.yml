@@ -6,7 +6,7 @@ jobs:
       with:
         path: |
           cache
-          !cache/unwanted/2/3
+          !cache/unwanted
         key: ${{ github.workflow }}/${{ github.run_number }}-${{ github.run_attempt }}
     - run: |
         mkdir -p cache/wanted cache/unwanted
@@ -19,9 +19,7 @@ jobs:
     - uses: actions/cache@v3
       with:
         fail-on-cache-miss: true
-        path: |
-          cache
-          !cache/unwanted/2/3
+        path: cache
         key: ${{ github.workflow }}/${{ github.run_number }}-${{ github.run_attempt }}
     - run: |
         find cache > "$GITHUB_STEP_SUMMARY"
