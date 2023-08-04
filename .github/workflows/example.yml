@@ -1,18 +1,27 @@
 name: Caching Primes
 on: workflow_dispatch
 jobs:
-  build:
+  save:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/cache@v3
       with:
         path: |
           cache
-          !cache/1/2/3
-        key: ${{ runner.os }}
-    - run: mkdir -p cache && find cache
+          !cache/unwanted/2/3
+        key: ${{ github.workflow }}/${{ github.run_number }}-${{ github.run_attempt }}
     - run: |
-        mkdir -p cache/1/2/3
-        echo > cache/1/2/3/4.txt
-        echo > cache/cache.txt
-  
+        mkdir -p cache/wanted cache/unwanted
+        > cache/wanted/example.txt
+        > cache/unwanted/example.txt
+  restore:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/cache@v3
+      with:
+        path: |
+          cache
+          !cache/unwanted/2/3
+        key: ${{ github.workflow }}/${{ github.run_number }}-${{ github.run_attempt }}
+    - run: |
+        find cache > "$GITHUB_STEP_SUMMARY"
