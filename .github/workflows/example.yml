@@ -11,7 +11,7 @@ jobs:
           cache
           !cache/**/3
         key: ${{ runner.os }}
-    - run: mkdir -p cache && ls cache
+    - run: mkdir -p cache && find cache
     - run: |
         mkdir -p cache/1/2/3
         echo > cache/1/2/3/4.txt
