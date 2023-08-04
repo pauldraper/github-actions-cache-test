@@ -21,7 +21,7 @@ jobs:
         fail-on-cache-miss: true
         path: |
           cache
-          !cache/unwanted
+          !cache/unwanted/**
         key: ${{ github.workflow }}/${{ github.run_number }}-${{ github.run_attempt }}
     - run: find cache > "$GITHUB_STEP_SUMMARY"
 on: workflow_dispatch
