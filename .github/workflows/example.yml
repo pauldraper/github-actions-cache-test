@@ -1,5 +1,3 @@
-name: Caching Primes
-on: workflow_dispatch
 jobs:
   save:
     runs-on: ubuntu-latest
@@ -15,13 +13,16 @@ jobs:
         > cache/wanted/example.txt
         > cache/unwanted/example.txt
   restore:
+    needs: [save]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/cache@v3
       with:
+        fail-on-cache-miss: true
         path: |
           cache
           !cache/unwanted/2/3
         key: ${{ github.workflow }}/${{ github.run_number }}-${{ github.run_attempt }}
     - run: |
         find cache > "$GITHUB_STEP_SUMMARY"
+on: workflow_dispatch
