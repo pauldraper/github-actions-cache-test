@@ -16,11 +16,11 @@ jobs:
     needs: [save]
     runs-on: ubuntu-latest
     steps:
+    - run: sleep 5 # ?? cache is delayed
     - uses: actions/cache@v3
       with:
         fail-on-cache-miss: true
         path: cache
         key: ${{ github.workflow }}/${{ github.run_number }}-${{ github.run_attempt }}
-    - run: |
-        find cache > "$GITHUB_STEP_SUMMARY"
+    - run: find cache > "$GITHUB_STEP_SUMMARY"
 on: workflow_dispatch
