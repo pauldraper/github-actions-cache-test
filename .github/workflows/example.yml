@@ -1,0 +1,19 @@
+name: Caching Primes
+on: workflow_dispatch
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/cache@v3
+      with:
+        path: |
+          cache
+          !cache/**/3
+        key: ${{ runner.os }}
+    - run: ls cache
+    - run: |
+        mkdir -p cache/1/2/3
+        echo > cache/1/2/3/4.txt
+        echo > cache/cache.txt
+  
