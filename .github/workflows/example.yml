@@ -6,7 +6,7 @@ jobs:
       with:
         path: |
           cache
-          !cache/unwanted
+          !cache/unwanted/**
         key: ${{ github.workflow }}/${{ github.run_number }}-${{ github.run_attempt }}
     - run: |
         mkdir -p cache/wanted cache/unwanted
